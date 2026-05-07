@@ -7,14 +7,6 @@ slug: "hk-260506-01-pagcors-new-livedealer-framework-puts-sea-supply"
 tags: ["live-casino", "philippines", "asia-pacific", "for-suppliers", "b2b-supplier"]
 ---
 
-title: "PAGCOR Live-Dealer Rules Reshape SEA Studio Compliance | Deal & Reel"
-description: "PAGCOR has released a new framework governing live-dealer studios streaming to Southeast Asia. Evolution, Pragmatic Play, and megaFUNalo all fall within scope — and the transition timeline is unconfirmed."
-kicker: Analysis
-tags: [live-casino, philippines, asia-pacific, for-suppliers, b2b-supplier]
-article_id: HK-260506-01
-date: 2026-05-06
----
-
 # PAGCOR's New Live-Dealer Framework Puts SEA Supply Chain on Notice
 
 **The Philippine regulator has released rules that reshape compliance obligations for studios streaming live-casino content across Southeast Asia — and the transition window may be shorter than operators expect.**
