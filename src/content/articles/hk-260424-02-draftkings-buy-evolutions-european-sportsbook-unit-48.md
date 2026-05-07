@@ -39,6 +39,5 @@ Three disclosures will determine whether the market's initial read holds. First,
 
 ---
 
-**Hero image:** pending — Creative agent not yet live
 **OG card:** pending
 **X card:** pending
