@@ -1,0 +1,343 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'The Global iGaming Industry Wire — Deal & Reel delivers expert analysis, regulatory intelligence, and market insights for the worldwide iGaming industry.' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@DealandReel" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <title>{title}</title>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a href="/" class="logo-link" id="logo-link" aria-label="Deal & Reel Home">
+        <img src="/logo.png" alt="Deal & Reel" class="logo-img" />
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
+        <ul class="nav-list" id="nav-list">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/articles" class="nav-link">Articles</a></li>
+          <li><a href="/about" class="nav-link">About</a></li>
+          <li><a href="/contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo-text">
+            <span class="footer-deal">Deal</span><span class="ampersand">&amp;</span><span class="footer-reel">Reel</span>
+          </div>
+          <p class="footer-tagline">The Global iGaming Industry Wire</p>
+        </div>
+        <div class="footer-links">
+          <h4 class="footer-heading">Navigate</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <h4 class="footer-heading">Connect</h4>
+          <ul>
+            <li>
+              <a href="https://x.com/DealandReel" target="_blank" rel="noopener noreferrer" id="footer-x-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span>@DealandReel</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://t.me/ironman_bm_bot" target="_blank" rel="noopener noreferrer" id="footer-telegram-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                <span>Telegram</span>
+              </a>
+            </li>
+          </ul>
+          <p class="newsletter-note">Newsletter — coming soon</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; {new Date().getFullYear()} Deal<span class="ampersand">&amp;</span>Reel. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation toggle
+    const toggle = document.getElementById('nav-toggle');
+    const navList = document.getElementById('nav-list');
+    if (toggle && navList) {
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        navList.classList.toggle('nav-open');
+        toggle.classList.toggle('is-active');
+      });
+    }
+  </script>
+
+  <style>
+    /* ── Header ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      height: var(--header-height);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(250, 250, 248, 0.92);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 38px;
+      width: auto;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style: none;
+      gap: var(--space-lg);
+    }
+
+    .nav-link {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      padding: var(--space-xs) 0;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width var(--transition-base);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link:hover {
+      color: var(--color-accent);
+    }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-sm);
+    }
+
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-primary);
+      transition: all var(--transition-base);
+    }
+
+    .hamburger {
+      position: relative;
+    }
+
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+
+    .hamburger::before { top: -7px; }
+    .hamburger::after { top: 7px; }
+
+    .nav-toggle.is-active .hamburger { background: transparent; }
+    .nav-toggle.is-active .hamburger::before { top: 0; transform: rotate(45deg); }
+    .nav-toggle.is-active .hamburger::after { top: 0; transform: rotate(-45deg); }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--color-primary);
+      color: rgba(255, 255, 255, 0.7);
+      padding: var(--space-3xl) 0 var(--space-xl);
+      margin-top: var(--space-4xl);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-2xl);
+      padding-bottom: var(--space-2xl);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-logo-text {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-tagline {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0;
+    }
+
+    .footer-heading {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-links ul,
+    .footer-social ul {
+      list-style: none;
+    }
+
+    .footer-links li,
+    .footer-social li {
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-links a,
+    .footer-social a {
+      color: rgba(255, 255, 255, 0.7);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: color var(--transition-fast);
+    }
+
+    .footer-links a:hover,
+    .footer-social a:hover {
+      color: var(--color-white);
+    }
+
+    .newsletter-note {
+      font-size: 0.75rem;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: var(--space-md);
+      margin-bottom: 0;
+    }
+
+    .footer-bottom {
+      padding-top: var(--space-lg);
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer-bottom p {
+      margin-bottom: 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-list {
+        display: none;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        background: var(--color-bg);
+        flex-direction: column;
+        padding: var(--space-lg) var(--space-xl);
+        border-bottom: 1px solid var(--color-border);
+        gap: var(--space-md);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      }
+
+      .nav-list.nav-open {
+        display: flex;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+      }
+    }
+  </style>
+</body>
+</html>

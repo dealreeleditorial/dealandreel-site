@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.data.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const formattedDate = article.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={`${article.data.title} — Deal & Reel`} description={article.data.title}>
+
+  <article class="article-page" id="article-content">
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="container--narrow">
+        <div class="article-meta-top">
+          <a href={`/articles?category=${encodeURIComponent(article.data.category)}`} class="category-badge">{article.data.category}</a>
+          <time class="date-text" datetime={article.data.date.toISOString()}>{formattedDate}</time>
+        </div>
+        <h1 class="article-title">{article.data.title}</h1>
+        {article.data.tags && (
+          <div class="article-tags">
+            {article.data.tags.map((tag: string) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    </header>
+
+    <!-- Article Body -->
+    <div class="article-body container--narrow">
+      <Content />
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="article-footer">
+      <div class="container--narrow">
+        <div class="article-end-mark">
+          <span class="ampersand-signature">&amp;</span>
+        </div>
+        <div class="article-nav">
+          <a href="/articles" class="back-link">
+            <span aria-hidden="true">←</span> All Articles
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </article>
+
+</BaseLayout>
+
+<style>
+  .article-page {
+    padding-bottom: var(--space-3xl);
+  }
+
+  /* ── Header ── */
+  .article-header {
+    padding: var(--space-3xl) 0 var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-white);
+  }
+
+  .article-meta-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .article-title {
+    font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+    line-height: 1.2;
+    margin-bottom: var(--space-lg);
+    max-width: 640px;
+  }
+
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  /* ── Body ── */
+  .article-body {
+    padding-top: var(--space-2xl);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .article-body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .article-body :global(h3) {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .article-body :global(p) {
+    margin-bottom: var(--space-lg);
+    color: var(--color-text);
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-xl);
+  }
+
+  .article-body :global(li) {
+    margin-bottom: var(--space-sm);
+  }
+
+  .article-body :global(blockquote) {
+    border-left: 3px solid var(--color-accent);
+    padding-left: var(--space-lg);
+    margin: var(--space-xl) 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+
+  .article-body :global(strong) {
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .article-body :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .article-body :global(a:hover) {
+    color: var(--color-primary);
+  }
+
+  /* ── Footer ── */
+  .article-footer {
+    margin-top: var(--space-2xl);
+  }
+
+  .article-end-mark {
+    text-align: center;
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .ampersand-signature {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    color: var(--color-accent);
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .article-nav {
+    text-align: center;
+    padding-top: var(--space-md);
+  }
+
+  .back-link {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    transition: color var(--transition-fast), gap var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+    gap: 0.7em;
+  }
+</style>

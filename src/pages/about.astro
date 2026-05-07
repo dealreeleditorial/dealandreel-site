@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About — Deal & Reel" description="Learn about Deal & Reel, the global iGaming industry wire.">
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">About</h1>
+    </div>
+  </section>
+  <section class="about-content">
+    <div class="container--narrow">
+      <div class="about-brand">
+        <img src="/logo.png" alt="Deal & Reel" class="about-logo" />
+      </div>
+      <div class="about-body">
+        <h2>Who We Are</h2>
+        <p><strong>Deal<span class="ampersand">&amp;</span>Reel</strong> is an independent editorial platform dedicated to covering the global iGaming industry with rigour, clarity, and speed.</p>
+        <p>We deliver expert analysis, regulatory intelligence, and market insights across online casino, sports betting, lottery, and emerging gaming verticals — from Manila to Malta, Macau to Michigan.</p>
+        <p>Our coverage focuses on the deals that shape the industry and the real-world impact of regulation, technology, and capital on operators, suppliers, and players worldwide.</p>
+        <h2>Editorial Standards</h2>
+        <p>Every piece published by Deal<span class="ampersand">&amp;</span>Reel adheres to our Editorial Charter:</p>
+        <ul>
+          <li><strong>Accuracy First</strong> — We verify claims, cite sources, and correct errors promptly.</li>
+          <li><strong>Independence</strong> — Editorial decisions are never influenced by commercial relationships.</li>
+          <li><strong>Global Perspective</strong> — We cover all jurisdictions without regional bias.</li>
+          <li><strong>Clear Language</strong> — Industry expertise without unnecessary jargon.</li>
+        </ul>
+        <h2>Get In Touch</h2>
+        <p>Have a tip or story idea? Visit our <a href="/contact">Contact page</a> or find us on <a href="https://x.com/DealandReel" target="_blank" rel="noopener noreferrer">X (@DealandReel)</a>.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header { padding: var(--space-3xl) 0 var(--space-xl); border-bottom: 1px solid var(--color-border); background: var(--color-white); }
+  .page-title { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+  .about-content { padding: var(--space-2xl) 0 var(--space-3xl); }
+  .about-brand { text-align: center; padding: var(--space-2xl) 0; margin-bottom: var(--space-xl); border-bottom: 1px solid var(--color-border); }
+  .about-logo { height: 64px; width: auto; margin: 0 auto; }
+  .about-body h2 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--color-primary); margin-top: var(--space-2xl); margin-bottom: var(--space-md); padding-bottom: var(--space-sm); border-bottom: 2px solid var(--color-accent); display: inline-block; }
+  .about-body h2:first-child { margin-top: 0; }
+  .about-body p { font-size: 1.05rem; line-height: 1.8; }
+  .about-body ul { margin: var(--space-md) 0 var(--space-lg); padding-left: var(--space-xl); }
+  .about-body li { margin-bottom: var(--space-sm); line-height: 1.7; font-size: 1.05rem; }
+  .about-body a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+  .about-body a:hover { color: var(--color-primary); }
+</style>

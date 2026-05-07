@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const sortedArticles = allArticles.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+function getExcerpt(body: string, maxLength = 200): string {
+  const cleaned = body
+    .replace(/^---[\s\S]*?---/, '')
+    .replace(/##?\s+.+/g, '')
+    .replace(/\n+/g, ' ')
+    .trim();
+  return cleaned.length > maxLength
+    ? cleaned.slice(0, maxLength).trimEnd() + '…'
+    : cleaned;
+}
+---
+
+<BaseLayout title="Articles — Deal & Reel" description="Browse the latest iGaming industry analysis, regulatory updates, and market intelligence from Deal & Reel.">
+
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">Articles</h1>
+      <p class="page-subtitle">Analysis, regulatory intelligence, and market insights for the global iGaming industry.</p>
+    </div>
+  </section>
+
+  <section class="articles-section">
+    <div class="container--narrow">
+      {sortedArticles.map((article) => (
+        <ArticleCard
+          title={article.data.title}
+          slug={article.data.slug}
+          category={article.data.category}
+          date={article.data.date}
+          excerpt={getExcerpt(article.body || '')}
+        />
+      ))}
+
+      {sortedArticles.length === 0 && (
+        <div class="empty-state">
+          <p>No articles published yet. Check back soon.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0 var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-white);
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-secondary);
+    max-width: 560px;
+    margin-bottom: 0;
+  }
+
+  .articles-section {
+    padding: var(--space-xl) 0 var(--space-3xl);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--space-3xl) 0;
+    color: var(--color-secondary);
+    font-family: var(--font-sans);
+  }
+</style>
