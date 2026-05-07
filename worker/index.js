@@ -61,14 +61,16 @@ export default {
       if (url.pathname === '/api/articles' && request.method === 'GET') {
         return await handleList(env);
       }
-      if (url.pathname.startsWith('/api/articles/') && request.method === 'DELETE') {
+      if (url.pathname.startsWith('/api/articles/')) {
         const slug = decodeURIComponent(url.pathname.slice('/api/articles/'.length));
-        return await handleDelete(slug, env);
+        if (request.method === 'GET') return await handleRead(slug, env);
+        if (request.method === 'DELETE') return await handleDelete(slug, env);
       }
       return json({ error: 'Not found', endpoints: [
         'POST   /api/publish',
         'PUT    /api/publish',
         'GET    /api/articles',
+        'GET    /api/articles/:slug',
         'DELETE /api/articles/:slug',
       ]}, 404);
     } catch (err) {
@@ -165,6 +167,27 @@ async function handleList(env) {
   return json({ count: articles.length, articles });
 }
 
+async function handleRead(slug, env) {
+  if (!slug) {
+    return json({ error: 'Missing slug in URL' }, 400);
+  }
+
+  const filePath = `${ARTICLES_PATH}/${slug}.md`;
+  const existing = await ghGet(filePath, env);
+  if (!existing) {
+    return json({ error: `Article "${slug}" not found` }, 404);
+  }
+
+  const rawContent = base64ToUtf8(existing.content);
+  
+  return json({
+    success: true,
+    slug,
+    content: rawContent,
+    sha: existing.sha
+  });
+}
+
 async function handleDelete(slug, env) {
   if (!slug) {
     return json({ error: 'Missing slug in URL' }, 400);
@@ -258,7 +281,7 @@ function validateFrontmatter(content) {
   }
 
   const fm = match[1];
-  const required = ['title', 'category', 'date', 'slug'];
+  const required = ['id', 'title', 'category', 'date', 'slug', 'tags'];
 
   for (const field of required) {
     if (!new RegExp(`^${field}:\\s*\\S`, 'm').test(fm)) {
@@ -288,6 +311,17 @@ function utf8ToBase64(str) {
     binary += String.fromCharCode(byte);
   }
   return btoa(binary);
+}
+
+function base64ToUtf8(str) {
+  const cleanStr = str.replace(/\n/g, '');
+  const binary = atob(cleanStr);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  const decoder = new TextDecoder();
+  return decoder.decode(bytes);
 }
 
 function json(data, status = 200) {
