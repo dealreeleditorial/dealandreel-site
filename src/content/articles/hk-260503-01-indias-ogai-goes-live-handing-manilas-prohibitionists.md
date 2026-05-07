@@ -7,6 +7,8 @@ slug: "hk-260503-01-indias-ogai-goes-live-handing-manilas-prohibitionists"
 tags: []
 ---
 
+# India's OGAI Goes Live, Handing Manila's Prohibitionists a Precedent
+
 India's Promotion and Regulation of Online Gaming Act came into force on May 1, 2026, activating the Online Gaming Authority of India (OGAI) and outlawing every online game played for cash stakes. The regime — a central licensing body, a 90-day classification window, and an outright ban on "online money games" — gives senators in Manila pushing to shut down Philippine iGaming their first large-economy precedent. It also lands an immediate revenue problem on the desks of PAGCOR-licensed operators servicing Indian players, regardless of whether the Philippines itself ever passes a ban.
 
 The PROG Rules 2026 were notified by the Ministry of Electronics and Information Technology (MeitY) on April 22, 2026, and took effect nine days later, [according to iGaming Business](https://igamingbusiness.com/legal-compliance/regulation/india-publish-new-online-gaming-regulations/). OGAI's registration portal went live the same day.
