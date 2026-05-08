@@ -16,7 +16,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<article class:list={['article-card', { 'article-card--featured': featured }]}>
+<article class:list={['article-card', { 'article-card--featured': featured }]} data-category={category}>
   <div class="article-card__meta">
     <span class="category-badge">{category}</span>
     <time class="date-text" datetime={date.toISOString()}>{formattedDate}</time>

@@ -49,6 +49,50 @@ function getExcerpt(body: string, maxLength = 200): string {
     </div>
   </section>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get('category');
+      
+      if (category) {
+        const titleEl = document.querySelector('.page-title');
+        const subtitleEl = document.querySelector('.page-subtitle');
+        if (titleEl) titleEl.textContent = `Category: ${category}`;
+        if (subtitleEl) subtitleEl.textContent = `Articles in "${category}"`;
+
+        const articles = document.querySelectorAll('.article-card');
+        let visibleCount = 0;
+        
+        articles.forEach((article) => {
+          const articleCategory = article.getAttribute('data-category');
+          if (articleCategory === category) {
+            (article as HTMLElement).style.display = '';
+            visibleCount++;
+          } else {
+            (article as HTMLElement).style.display = 'none';
+          }
+        });
+
+        let emptyState = document.querySelector('.empty-state') as HTMLElement;
+        if (visibleCount === 0) {
+          if (!emptyState) {
+            const container = document.querySelector('.articles-section .container--narrow');
+            if (container) {
+              emptyState = document.createElement('div');
+              emptyState.className = 'empty-state';
+              container.appendChild(emptyState);
+            }
+          }
+          if (emptyState) {
+            emptyState.style.display = '';
+            emptyState.innerHTML = `<p>No articles found for category "${category}".</p>`;
+          }
+        } else if (emptyState) {
+          emptyState.style.display = 'none';
+        }
+      }
+    });
+  </script>
 </BaseLayout>
 
 <style>
